@@ -99,7 +99,10 @@
                       (j && j.message) || ("HTTP " + r.status));
         e.status = r.status; throw e;
       });
-    }, function () { say("GitHubにつながりません（電波を確かめてください）。つながったら自動で読み直します"); throw dbErr("unavailable", "GitHubにつながりません"); });
+    }, function (x) {
+      say("GitHubにつながりません（電波を確かめてください）。つながったら自動で読み直します（くわしく：" + ((x && x.message) || x) + "）");
+      var e = dbErr("unavailable", "GitHubにつながりません"); e.detail = String((x && (x.name + ": " + x.message)) || x); throw e;
+    });
   }
 
   // ---------------------------------------------------------------- 置き場所の写し
@@ -435,19 +438,26 @@
     document.body.appendChild(box);
     if (NAMES[WHO]) box.querySelector('input[value="' + WHO + '"]').checked = true;
     box.querySelector("#go").onclick = function () {
-      var who = (box.querySelector('input[name="who"]:checked') || {}).value, tok = box.querySelector("#tok").value.trim(), msg = box.querySelector("#msg");
+      var who = (box.querySelector('input[name="who"]:checked') || {}).value, msg = box.querySelector("#msg");
+      // 貼るときに紛れ込みやすい空白・改行・見えない文字を取り除く
+      var raw = box.querySelector("#tok").value, tok = raw.replace(/[\s\u200B-\u200D\u2060\uFEFF]/g, "");
       if (!who) { msg.textContent = "1. だれのスマホかを選んでください"; return; }
       if (!tok) { msg.textContent = "2. 鍵を貼ってください"; return; }
+      if (/[^\x21-\x7E]/.test(tok)) { msg.textContent = "鍵に、英数字以外の文字がまざっています。もう一度コピーし直して貼ってください"; return; }
+      if (!/^(github_pat_|ghp_|gho_)/.test(tok)) { msg.textContent = "鍵は「github_pat_」で始まる文字です。始まりが違うようなので、もう一度コピーし直して貼ってください（いま貼られているのは " + tok.length + " 文字）"; return; }
       msg.style.color = "#3b3036"; msg.textContent = "確かめています…";
       TOKEN = tok;
-      gh("GET", "/git/trees/" + BRANCH).then(function () { return fetchBaseTags(); }).then(function () {
+      var stage = "置き場所を見る";
+      gh("GET", "/git/trees/" + BRANCH).then(function () { stage = "タグの一覧を読む"; return fetchBaseTags(); }).then(function () {
         ls(LS.token, tok); ls(LS.who, who);
         location.replace(location.pathname);
       }).catch(function (e) {
         msg.style.color = "#c2185b";
         msg.textContent = e.status === 401 ? "この鍵は使えません。貼り間違いがないか、期限が切れていないかを確かめてください"
           : e.status === 404 || e.status === 403 ? "この鍵では、タスクの置き場所が見られません。鍵を作るときに mirum-tasks を選んだかを確かめてください"
-          : "GitHubにつながりません。電波を確かめてから、もう一度押してください";
+          : e.code === "unavailable" ? "GitHubにつながりません。電波を確かめてから、もう一度押してください"
+          : "うまくいきませんでした";
+        msg.textContent += "（くわしく：" + stage + "／" + (e.status || "") + " " + (e.detail || e.message || e) + "）";
       });
     };
   }
