@@ -566,12 +566,13 @@ span.ghost{visibility:hidden;display:block}
 .mt-staffs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 14px}
 .mt-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .mt-tile{border-radius:var(--r);padding:10px 6px;text-align:center;background:var(--c-orange);min-width:0}
-.mt-tile.palm{background:var(--c-pink)} .mt-tile.cat{background:var(--c-blue)} .mt-tile.insta{background:var(--c-purple)} .mt-tile.week{background:var(--c-green)}
+.mt-tile.palm{background:var(--c-pink)} .mt-tile.cat{background:var(--c-blue)} .mt-tile.insta{background:var(--c-purple)} .mt-tile.week{background:var(--c-green)} .mt-tile.tool{background:var(--c-yellow)} /* 道具（Magnific の残り） */
 .mt-tile .mt-ch{margin:0 0 1px}
 .mt-tile .k{font-size:12px;color:var(--muted)}
 .mt-tile .v{font-size:30px;font-weight:700;color:var(--fg-strong);line-height:1.2}
 .mt-tile .v small{font-size:14px;margin-left:2px}
 .mt-tile .d{font-size:11px;color:var(--muted)}
+.mt-tile .d.at{font-size:10px;opacity:.85}
 .mt-box{background:var(--surface);border:var(--bw) solid var(--line);border-radius:var(--r);padding:12px 14px;min-width:0}
 .mt-box h3{font-size:16px;margin:0 0 8px;display:flex;align-items:center;gap:6px;color:var(--fg-strong)}
 .mt-box h3 .n{background:var(--accent);color:var(--accent-ink);border-radius:999px;font-size:12px;padding:1px 9px}
@@ -634,7 +635,7 @@ a.mt-ci:hover img{filter:brightness(1.06)}
 .mt-ci .nm{font-size:10.5px;color:var(--muted);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .mt-todo{display:flex;align-items:center;gap:8px;font-size:14px;padding:5px 0}
 .mt-todo .box{width:18px;height:18px;border:2px solid var(--muted);border-radius:5px;flex:none}
-.mt-todo .dl{margin-left:auto;font-size:11px;background:var(--c-red);color:var(--danger);border-radius:999px;padding:2px 8px;white-space:nowrap}
+.mt-todo .dl,.mt-watch .dl{margin-left:auto;font-size:11px;background:var(--c-red);color:var(--danger);border-radius:999px;padding:2px 8px;white-space:nowrap}
 .mt-staff{display:flex;align-items:center;gap:9px;font-size:14px;padding:4px 0;line-height:1.4}
 .mt-staff img{width:38px;height:38px;object-fit:contain;flex:none}
 .mt-staff b{color:var(--fg-strong)}
@@ -658,9 +659,32 @@ a.mt-ci:hover img{filter:brightness(1.06)}
 .mt-hb .hbar i{display:block;height:100%;min-width:4px;background:var(--mt-palm);border-radius:0 4px 4px 0}
 .mt-hb .hv{text-align:right;color:var(--fg)}
 .mt-hb:hover .hbar i{filter:brightness(1.08)} .mt-hb:hover .hn{text-decoration:underline}
-@media (max-width:760px){.mt-row.r21,.mt-row.r2,.mt-staffs{grid-template-columns:minmax(0,1fr)}}
+/* 🙋 社長に聞きたいこと：答えがまだの質問を押すだけで答える。答えたら消える */
+.mt-askslot:empty{display:none}
+.mt-asks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.mt-aq{border:var(--bw) solid var(--line);border-radius:var(--r-sm);padding:10px 12px;display:flex;flex-direction:column;gap:8px;min-width:0;background:var(--bg)}
+.mt-aq .qt{font-size:15px;font-weight:700;color:var(--fg-strong);line-height:1.5}
+.mt-aq .why{font-size:11.5px;color:var(--muted);line-height:1.5}
+.mt-aq .err{font-size:12px;color:var(--danger);font-weight:700}
+.mt-aopts{display:flex;flex-wrap:wrap;gap:6px}
+.mt-aopt{border:var(--bw) solid var(--accent);background:var(--surface);color:var(--fg-strong);border-radius:999px;padding:5px 14px;min-height:36px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;max-width:100%;text-align:left}
+.mt-aopt:hover{background:var(--accent-soft)}
+.mt-aopt[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.mt-aopt.k{border-color:var(--line);font-size:12px;min-height:28px;padding:2px 10px;font-weight:400}
+.mt-aopt.k[aria-pressed="true"]{border-color:var(--accent)}
+.mt-aopt:disabled,.mt-aq .btn:disabled{opacity:.55;cursor:default;transform:none}
+.mt-alb{font-size:12px;color:var(--muted);margin-bottom:3px}
+.mt-atxt{display:flex;gap:6px;align-items:flex-end}
+.mt-atxt textarea{flex:1;min-width:0;font:inherit;font-size:14px;line-height:1.5;border:var(--bw) solid var(--line);border-radius:var(--r-sm);padding:6px 9px;background:var(--surface);color:var(--fg);resize:vertical;min-height:3.4em}
+.mt-atxt textarea:focus{outline:none;border-color:var(--accent)}
+.mt-aq .btn{flex:none;font:inherit;font-size:14px;font-weight:700}
+.mt-aq.done{flex-direction:row;align-items:center;flex-wrap:wrap;gap:4px 10px;font-size:14px;background:var(--c-green);border-color:transparent}
+.mt-aq.done b{color:var(--fg-strong)}
+.mt-aundo{margin-left:auto;background:none;border:0;padding:4px 2px;color:var(--muted);text-decoration:underline;cursor:pointer;font:inherit;font-size:12px}
+.mt-amore{font-size:12px;color:var(--muted);margin-top:8px}
+@media (max-width:760px){.mt-row.r21,.mt-row.r2,.mt-staffs,.mt-asks{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:560px){.mt-head{flex-wrap:wrap}.mt-head>div:first-child{flex-basis:100%}.mt-bubble{margin-left:0;flex:1;max-width:none;font-size:13px}.mt-bubble::after{display:none}.mt-chikuwa{width:64px;height:64px}
-  .mt-tiles{grid-template-columns:repeat(2,minmax(0,1fr))!important}.mt-tile .v{font-size:26px}.mt-wth{width:112px;height:63px}.mt-watch.short .mt-wth{width:63px;height:112px;margin:0 24.5px}}
+  .mt-tiles{grid-template-columns:repeat(2,minmax(0,1fr))!important}.mt-tile:last-child:nth-child(odd){grid-column:span 2}.mt-tile .v{font-size:26px}.mt-wth{width:112px;height:63px}.mt-watch.short .mt-wth{width:63px;height:112px;margin:0 24.5px}}
 /* 狭い画面のカレンダーは、1日＝1行（左に日付、右にその日の本を横に並べる） */
 @media (max-width:700px){.mt-cal{grid-template-columns:minmax(0,1fr)}
   .mt-cd{display:grid;grid-template-columns:3.4em minmax(0,1fr);gap:8px;align-items:start;padding:6px 6px 6px 0}
@@ -1239,12 +1263,104 @@ function mtCharts(d){
   }
   return out;
 }
+// 🙋 社長に聞きたいこと：答えがまだの質問（新しい順に6つまで）を、押すだけで答える。答えたらその問いは消える
+// （2026-11-12 さおり「質問ボードは見ないので、こっちにあったほうが良いかも」）
+// 質問と答えは、このMacの手元サーバー（/api/ask）が別の手元のサーバーから取り次ぐ。取り次ぎの設定が無いMac・ネットに置いたページでは出さない
+const ask = {qs: null, left: 0, off: false, err: false, at: 0, busy: false, draft: {}, done: {}, tm: {}, later: false};
+const ASK_STALE = 60000; // 1分たったら読み直す
+const askLocal = () => location.protocol === "http:";
+const askTyping = () => !!document.activeElement?.matches?.("#mtAsk textarea"); // 文字を打っている途中は描き直さない（日本語の変換が切れるため）
+const askDraft = id => ask.draft[id] || (ask.draft[id] = {pick: [], text: "", kokai: "", err: "", sending: false});
+async function askLoad(){
+  if (ask.busy) return; ask.busy = true;
+  try {
+    const r = await fetch("/api/ask", {cache: "no-store"}), d = await r.json().catch(() => ({}));
+    if (d.off || r.status === 404) { ask.off = true; ask.qs = null; }
+    else if (!r.ok || !Array.isArray(d.qs)) ask.err = true;
+    else { ask.off = false; ask.err = false; ask.left = +d.left || d.qs.length;
+      const next = d.qs.slice(); // 答えた直後の「届きました」は、同じ場所に少し残す
+      (ask.qs || []).forEach((q, i) => { if (ask.done[q.id] != null && !next.some(x => x.id === q.id)) next.splice(Math.min(i, next.length), 0, q); });
+      ask.qs = next; }
+  } catch (e) { ask.err = true; }
+  ask.at = Date.now(); ask.busy = false; askPaint();
+}
+function askPaint(){
+  const el = $("#mtAsk"); if (!el || !isMatome()) return;
+  if (askTyping()) { ask.later = true; return; }
+  el.innerHTML = askBox();
+}
+function askCard(q){
+  const dr = askDraft(q.id), dn = ask.done[q.id], id = esc(q.id), dis = dr.sending ? " disabled" : "";
+  if (dn != null) return `<div class="mt-aq done"><span>✓ 届きました：<b>${esc(dn)}</b></span><button type="button" class="mt-aundo" data-ask-undo="${id}"${dis}>取り消す</button></div>`;
+  const opts = q.type !== "text" ? q.opts || [] : [];
+  const pub = q.pub ? `<div><div class="mt-alb">外（投稿など）に出していい？（選ばなくてもOK）</div><div class="mt-aopts">${["出してOK","ぼかせばOK","社内だけ"].map(k => `<button type="button" class="mt-aopt k" data-ask-k="${id}" data-o="${esc(k)}" aria-pressed="${dr.kokai === k}"${dis}>${esc(k)}</button>`).join("")}</div></div>` : "";
+  const pick = opts.length ? `<div>${q.type === "many" ? `<div class="mt-alb">いくつでも選べます</div>` : ""}<div class="mt-aopts">${opts.map(o => `<button type="button" class="mt-aopt" data-ask-pick="${id}" data-o="${esc(o)}" aria-pressed="${dr.pick.includes(o)}"${dis}>${esc(o)}</button>`).join("")}</div></div>` : "";
+  const send = q.type === "many" && opts.length ? `<div><button type="button" class="btn" data-ask-send="${id}"${dr.pick.length && !dr.sending ? "" : " disabled"}>これで送る</button></div>` : "";
+  const txt = !opts.length ? `<div class="mt-atxt"><textarea rows="2" data-ask-txt="${id}" placeholder="ひとことでOK" aria-label="答えを書く"${dis}>${esc(dr.text)}</textarea><button type="button" class="btn" data-ask-send="${id}"${dis}>送る</button></div>` : "";
+  return `<div class="mt-aq"${q.from ? ` title="聞いた人：${esc(q.from)}"` : ""}><div class="qt">${esc(q.q)}</div>${pub}${pick}${send}${txt}${dr.err ? `<div class="err">${esc(dr.err)}</div>` : ""}${q.why ? `<div class="why">なぜ聞くか：${esc(q.why)}</div>` : ""}</div>`;
+}
+function askBox(){
+  if (!askLocal() || ask.off) return "";
+  const qs = ask.qs || [], open = qs.filter(q => ask.done[q.id] == null).length;
+  if (!qs.length && !ask.err) return "";
+  return `<div class="mt-box mt-ask"><h3>🙋 社長に聞きたいこと（押すだけ）${open ? `<span class="n num">${open}</span>` : ""}</h3>
+    ${qs.length ? `<div class="mt-asks">${qs.map(askCard).join("")}</div>` : `<p class="ph">質問を読みこめませんでした。少しあとで、このタブを開き直してね</p>`}
+    ${ask.left > open && open ? `<div class="mt-amore">新しい順に${open}問だけ出しています（ほかに古い質問が${ask.left - open}問）</div>` : ""}</div>`;
+}
+async function askSend(q, undo = false){
+  const dr = askDraft(q.id), text = dr.text.trim();
+  if (!undo && !dr.pick.length && !text) { dr.err = q.type === "text" || !(q.opts||[]).length ? "ひとこと書いてから押してね" : "選んでから押してね"; askPaint(); return; }
+  dr.sending = true; dr.err = ""; clearTimeout(ask.tm[q.id]);
+  if (askTyping()) document.activeElement.blur();
+  askPaint();
+  try {
+    const r = await fetch("/api/ask", {method: "POST", headers: {"Content-Type": "application/json", "X-Task-Board": "1"},
+      body: JSON.stringify(undo ? {id: q.id, undo: true} : {id: q.id, pick: dr.pick, text, kokai: dr.kokai})});
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok || !d.ok) throw new Error(d.error || "");
+    if (undo) { delete ask.done[q.id]; if (q.type === "one") dr.pick = []; }
+    else ask.done[q.id] = [...dr.pick, text].filter(Boolean).join("・");
+  } catch (e) {
+    dr.err = undo ? "取り消せませんでした。もう一度押してね" : "届きませんでした。もう一度押してね";
+    if (!undo && q.type === "one") dr.pick = [];
+  }
+  if (ask.done[q.id] != null) ask.tm[q.id] = setTimeout(() => askForget(q.id), 6000); // 「届きました」は6秒見せてから消す
+  dr.sending = false; askPaint();
+}
+function askForget(id){ // 「届きました」を少し見せたら消して、次の質問を読み直す
+  delete ask.done[id]; delete ask.draft[id]; delete ask.tm[id];
+  ask.qs = (ask.qs || []).filter(q => q.id !== id); ask.left = Math.max(0, ask.left - 1);
+  askPaint(); askLoad();
+}
+function askClick(e){
+  const t = e.target.closest("[data-ask-pick],[data-ask-send],[data-ask-undo],[data-ask-k]"); if (!t || t.disabled) return;
+  const id = t.dataset.askPick || t.dataset.askSend || t.dataset.askUndo || t.dataset.askK, q = (ask.qs || []).find(x => x.id === id);
+  if (!q) return;
+  const dr = askDraft(q.id); if (dr.sending) return;
+  if (t.dataset.askUndo) { askSend(q, true); return; }
+  if (t.dataset.askK) { dr.kokai = dr.kokai === t.dataset.o ? "" : t.dataset.o; askPaint(); return; }
+  if (t.dataset.askPick) {
+    const o = t.dataset.o; dr.err = "";
+    if (q.type === "many") { dr.pick = dr.pick.includes(o) ? dr.pick.filter(x => x !== o) : [...dr.pick, o]; askPaint(); return; }
+    dr.pick = [o]; askSend(q); return; // 1つ選ぶ質問は、押したらすぐ届ける
+  }
+  askSend(q);
+}
+$("#main").addEventListener("input", e => { const id = e.target.dataset?.askTxt; if (id) askDraft(id).text = e.target.value; });
+$("#main").addEventListener("focusout", e => { // 打っている途中に来た描き直しは、入力欄から出たあとにまとめて行う
+  if (!ask.later || !e.target.matches?.("#mtAsk textarea")) return;
+  setTimeout(() => { if (ask.later && !askTyping() && isMatome()) { ask.later = false; renderMain(); } }, 300);
+});
 function renderMatome(){
+  if (askTyping()) { ask.later = true; return; }
+  ask.later = false;
+  if (askLocal() && !ask.off && !ask.busy && Date.now() - ask.at > ASK_STALE) askLoad();
   const d = mt.docs.get("today") || {}, src = k => (k && mt.docs.get("img-"+k)?.src) || "";
   const img = (k, cls = "") => src(k) ? `<img class="${cls}" src="${esc(src(k))}" alt="">` : `<span class="mt-noimg ${cls}"></span>`;
   const face = c => `猫/${esc(c)}_face.png`;
   // 数字のカード：登録者はチャンネルごとに1枚（2026-11-12 さおり「チャンネルいくつかあるから1箇所じゃないほうがいい」）
-  const tiles = (d.tiles||[]).map(t => `<div class="mt-tile ${esc(t.cls||"")}">${t.ch ? `<span class="mt-ch ${esc(t.cls||"")}">${esc(t.ch)}</span>` : ""}<div class="k">${esc(t.k)}</div><div class="v num">${esc(t.v)}<small>${esc(t.u)}</small></div><div class="d">${esc(t.d)}</div></div>`).join("");
+  // 札の下に「〇/〇 〇:〇〇 時点」（2026-11-13 さおり「いつ時点の数字かもあると良いかも」）
+  const tiles = (d.tiles||[]).map(t => `<div class="mt-tile ${esc(t.cls||"")}">${t.ch ? `<span class="mt-ch ${esc(t.cls||"")}">${esc(t.ch)}</span>` : ""}<div class="k">${esc(t.k)}</div><div class="v num">${esc(t.v)}<small>${esc(t.u)}</small></div><div class="d">${esc(t.d)}</div>${t.t ? `<div class="d at">${esc(t.t)} 時点</div>` : ""}</div>`).join("");
   // 公開はぬりつぶし、予約済みは同じ色のしま（2026-11-12 さおり「予約済のやつも別の色で出ると良いかも」）
   const bars = (d.bars||[]).map(b => { const r = b.rsv || 0, pct = n => Math.min(100, Math.round(n / b.goal * 100));
     return `<div class="mt-bar ${esc(b.kind)}"><span class="nm">${esc(b.name)}</span>${b.goal <= 10
@@ -1253,7 +1369,7 @@ function renderMatome(){
   const anyRsv = (d.bars||[]).some(b => b.rsv);
   const chip = w => w.ch ? `<span class="mt-ch ${esc(w.chKind||"")}">${esc(w.ch)}</span>` : "";
   // 見る番もショートは縦長・長編は横長、形の札つき（2026-11-12 さおり「社長が見る番のところも、今週出るものと同様にショートとロングの表示を変えたい」）
-  const watch = (d.watch||[]).map(w => `<div class="mt-watch${w.kind === "ショート" ? " short" : ""}"><div class="mt-pic mt-wth">${img(w.img)}${w.kind ? `<span class="mt-kind">${esc(w.kind)}</span>` : ""}</div><div><div class="mt-t">${w.urgent ? `<span class="mt-tag">急ぎ</span>` : ""}${chip(w)}${esc(w.title)}</div><div class="q">${esc(w.q)}</div></div></div>`).join("");
+  const watch = (d.watch||[]).map(w => `<div class="mt-watch${w.kind === "ショート" ? " short" : ""}"><div class="mt-pic mt-wth">${img(w.img)}${w.kind ? `<span class="mt-kind">${esc(w.kind)}</span>` : ""}</div><div><div class="mt-t">${w.urgent ? `<span class="mt-tag">急ぎ</span>` : ""}${chip(w)}${esc(w.title)}</div><div class="q">${esc(w.q)}</div></div>${w.due ? `<span class="dl">${esc(w.due)}</span>` : ""}</div>`).join("");
   // 札：形（ショート・長編）はサムネの下の端、チャンネルは時刻の横（2026-11-12 さおり「YouTube Shortとか、何のチャンネルとかもあるといい」）
   // 動画IDがあれば、押すとYouTubeが開く（2026-11-12 さおり「今週出るものとか飛べたら良いね」）
   const item = w => { const tag = w.url ? `a href="${esc(w.url)}" target="_blank" rel="noopener"` : "div";
@@ -1268,15 +1384,17 @@ function renderMatome(){
   $("#main").innerHTML = `<div class="mt">
     <div class="mt-head"><div><h2 class="mt-title">🐾 ${esc(mtName())}</h2><div class="mt-at">${esc(d.at)} 更新</div>${old ? `<div class="mt-old">ひとこと・見る番・社員は ${esc(d.handDate.slice(5).replace("-","/"))} のまま</div>` : ""}</div>
       ${d.hitokoto ? `<div class="mt-bubble">${esc(d.hitokoto)}</div>` : ""}<img class="mt-chikuwa" src="猫/chikuwa.png" alt=""></div>
-    ${tiles ? `<div class="mt-tiles" style="grid-template-columns:repeat(${Math.min((d.tiles||[]).length, 4)},minmax(0,1fr))">${tiles}</div>` : ""}
+    ${tiles ? `<div class="mt-tiles" style="grid-template-columns:repeat(${Math.min((d.tiles||[]).length, 5)},minmax(0,1fr))">${tiles}</div>` : ""}
+    <div id="mtAsk" class="mt-askslot">${askBox()}</div>
+    ${week ? `<div class="mt-box"><h3>📅 今週出るもの${(d.week||[]).some(w => w.url) ? ` <span class="ph">▶ を押すとYouTube</span>` : ""}</h3><div class="mt-cal">${week}</div></div>` : ""}
+    <div class="mt-row r2">${mtCharts(d).join("")}</div>
+    ${staff ? `<div class="mt-box"><h3>🐱 社員がいまやっていること</h3><div class="mt-staffs">${staff}</div></div>` : ""}
+    <!-- 見る番・スマホ・長編の段はいちばん下（2026-11-13 さおり「レイアウト一番下でもいいかも」） -->
     <div class="mt-row r21">
       <div class="mt-box"><h3>👀 社長が見る番 <span class="n num">${(d.watch||[]).length}</span></h3>${watch || `<p class="ph">いまはありません</p>`}${d.soon ? `<div class="mt-soon">あした届く：${esc(d.soon)}</div>` : ""}</div>
       <div class="mt-stack"><div class="mt-box"><h3>📱 スマホでやること</h3>${todo || `<p class="ph">いまはありません</p>`}</div>
         ${bars ? `<div class="mt-box"><h3>📺 長編の進み具合</h3>${bars}<div class="mt-bfoot">${anyRsv ? `<span class="mt-key"><span><i class="on"></i>公開</span><span><i class="rsv"></i>予約済み</span></span>` : "<span></span>"}${d.barNote ? `<div class="mt-note">${esc(d.barNote)}</div>` : ""}</div></div>` : ""}</div>
     </div>
-    ${week ? `<div class="mt-box"><h3>📅 今週出るもの${(d.week||[]).some(w => w.url) ? ` <span class="ph">▶ を押すとYouTube</span>` : ""}</h3><div class="mt-cal">${week}</div></div>` : ""}
-    <div class="mt-row r2">${mtCharts(d).join("")}</div>
-    ${staff ? `<div class="mt-box"><h3>🐱 社員がいまやっていること</h3><div class="mt-staffs">${staff}</div></div>` : ""}
   </div>`;
 }
 
@@ -1972,6 +2090,7 @@ $("#main").addEventListener("mousedown", e => {
 $("#main").addEventListener("click", e => {
   if (st.justResized) return;
   if (isOffice()) { officeClick(e); return; }
+  if (isMatome()) { askClick(e); return; }
   if (st.editing) {
     if (e.target.closest(EDITOR)) return;
     const same = e.target.closest("td.ed")?.querySelector(EDITOR);
