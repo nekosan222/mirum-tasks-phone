@@ -594,6 +594,9 @@ span.ghost{visibility:hidden;display:block}
 .mt-day .mt-dt{font-size:12px;font-weight:700;margin-top:4px}
 .mt-day.mt-now .mt-dt{color:var(--danger)}
 .mt-pic{position:relative}
+a.mt-day{color:inherit;text-decoration:none;display:block}
+a.mt-day:hover img{filter:brightness(1.06)}
+.mt-play{position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;background:rgba(230,33,23,.9);color:#fff;font-size:7px;line-height:16px;text-align:center;padding-left:1px;box-sizing:border-box}
 .mt-kind{position:absolute;left:0;right:0;bottom:0;font-size:10px;line-height:1.7;font-weight:700;color:#fff;background:rgba(40,30,35,.62);border-radius:0 0 8px 8px}
 .mt-ch{display:inline-block;font-size:10px;line-height:1.6;font-weight:700;border-radius:999px;padding:0 7px;margin:2px 0 1px;color:#fff;background:var(--muted)}
 .mt-ch.palm{background:var(--accent)} .mt-ch.cat{background:#6aa8ff} .mt-ch.insta{background:#c45a9b}
@@ -1159,7 +1162,9 @@ function renderMatome(){
       : `<span class="mt-track"><i style="width:${Math.min(100, Math.round(b.done / b.goal * 100))}%"></i></span>`}<span class="n num">${b.done}/${b.goal}</span></div>`).join("");
   const watch = (d.watch||[]).map(w => `<div class="mt-watch">${img(w.img, "th")}<div><div class="mt-t">${w.urgent ? `<span class="mt-tag">急ぎ</span>` : ""}${esc(w.title)}</div><div class="q">${esc(w.q)}</div></div></div>`).join("");
   // 札：形（ショート・長編）はサムネの下の端、チャンネルは日付の下（2026-11-12 さおり「YouTube Shortとか、何のチャンネルとかもあるといい」）
-  const week = (d.week||[]).map(w => `<div class="mt-day${w.today ? " mt-now" : ""}"><div class="mt-pic">${w.cat ? `<img class="night" src="${face(w.cat)}" alt="">` : img(w.img)}${w.kind ? `<span class="mt-kind">${esc(w.kind)}</span>` : ""}</div><div class="mt-dt">${esc(w.dt)}</div>${w.ch ? `<span class="mt-ch ${esc(w.chKind||"")}">${esc(w.ch)}</span>` : ""}<div class="nm">${esc(w.nm)}</div></div>`).join("");
+  // 動画IDがあれば、押すとYouTubeが開く（2026-11-12 さおり「今週出るものとか飛べたら良いね」）
+  const week = (d.week||[]).map(w => { const tag = w.url ? `a href="${esc(w.url)}" target="_blank" rel="noopener"` : "div";
+    return `<${tag} class="mt-day${w.today ? " mt-now" : ""}"><div class="mt-pic">${w.cat ? `<img class="night" src="${face(w.cat)}" alt="">` : img(w.img)}${w.kind ? `<span class="mt-kind">${esc(w.kind)}</span>` : ""}${w.url ? `<span class="mt-play">▶</span>` : ""}</div><div class="mt-dt">${esc(w.dt)}</div>${w.ch ? `<span class="mt-ch ${esc(w.chKind||"")}">${esc(w.ch)}</span>` : ""}<div class="nm">${esc(w.nm)}</div></${w.url ? "a" : "div"}>`; }).join("");
   const todo = (d.todo||[]).map(t => `<div class="mt-todo"><i class="box"></i><span>${esc(t.text)}</span>${t.due ? `<span class="dl">${esc(t.due)}</span>` : ""}</div>`).join("");
   const staff = (d.staff||[]).map(s => `<div class="mt-staff"><img src="${face(s.cat)}" alt=""><div><b>${esc(s.title)}</b>：${esc(s.text)}</div></div>`).join("");
   const old = d.handDate && d.day && d.handDate!==d.day;
@@ -1171,7 +1176,7 @@ function renderMatome(){
       ${bars ? `<div class="mt-box"><h3>📺 長編の進み具合</h3>${bars}${d.barNote ? `<div class="mt-note">${esc(d.barNote)}</div>` : ""}</div>` : ""}
       <div class="mt-box"><h3>👀 社長が見る番 <span class="n num">${(d.watch||[]).length}</span></h3>${watch || `<p class="ph">いまはありません</p>`}${d.soon ? `<div class="mt-soon">あした届く：${esc(d.soon)}</div>` : ""}</div>
     </div><div class="mt-col">
-      ${week ? `<div class="mt-box"><h3>📅 今週出るもの</h3><div class="mt-week">${week}</div></div>` : ""}
+      ${week ? `<div class="mt-box"><h3>📅 今週出るもの${(d.week||[]).some(w => w.url) ? ` <span class="ph">▶ を押すとYouTube</span>` : ""}</h3><div class="mt-week">${week}</div></div>` : ""}
       <div class="mt-box"><h3>📱 スマホでやること</h3>${todo || `<p class="ph">いまはありません</p>`}</div>
       ${staff ? `<div class="mt-box"><h3>🐱 社員がいまやっていること</h3>${staff}</div>` : ""}
     </div></div></div>`;
