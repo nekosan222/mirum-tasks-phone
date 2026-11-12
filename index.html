@@ -547,7 +547,9 @@ span.ghost{visibility:hidden;display:block}
 }
 @media (prefers-reduced-motion:reduce){.office .conf{display:none}.office .tcard{transition:none}.office .tcard:hover{transform:none}}
 /* 🐾 会社のまとめ（さおりさんだけのタブ・2026-11-12 さおり「🐾 Taskの別室みたいな感じで」）。色はきせかえの色を使う */
-.mt{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.mt{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:14px;--mt-palm:#e7798f;--mt-cat:#6aa8ff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .mt{--mt-palm:#d6607a;--mt-cat:#4e8fe8}}
+:root[data-theme="dark"] .mt{--mt-palm:#d6607a;--mt-cat:#4e8fe8}
 .mt-head{display:flex;align-items:center;gap:12px}
 .mt-title{font-family:var(--font-display);font-size:22px;color:var(--fg-strong);margin:0;font-weight:400}
 .mt-at{font-size:13px;color:var(--muted);margin-top:2px}
@@ -574,8 +576,8 @@ span.ghost{visibility:hidden;display:block}
 .mt-bar .slots i{flex:1;height:20px;border-radius:7px;background:var(--c-gray)}
 .mt-bar .mt-track{flex:1;height:20px;border-radius:7px;background:var(--c-gray);overflow:hidden}
 .mt-bar .mt-track i{display:block;height:100%}
-.mt-bar.palm .slots i.on,.mt-bar.palm .mt-track i{background:var(--accent)}
-.mt-bar.cat .slots i.on,.mt-bar.cat .mt-track i{background:#6aa8ff}
+.mt-bar.palm .slots i.on,.mt-bar.palm .mt-track i{background:var(--mt-palm)}
+.mt-bar.cat .slots i.on,.mt-bar.cat .mt-track i{background:var(--mt-cat)}
 .mt-bar .n{width:3.5em;text-align:right;font-weight:700}
 .mt-note{font-size:12px;color:var(--muted);text-align:right}
 .mt-watch{display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1.5px dashed var(--line)}
@@ -599,7 +601,7 @@ a.mt-day:hover img{filter:brightness(1.06)}
 .mt-play{position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;background:rgba(230,33,23,.9);color:#fff;font-size:7px;line-height:16px;text-align:center;padding-left:1px;box-sizing:border-box}
 .mt-kind{position:absolute;left:0;right:0;bottom:0;font-size:10px;line-height:1.7;font-weight:700;color:#fff;background:rgba(40,30,35,.62);border-radius:0 0 8px 8px}
 .mt-ch{display:inline-block;font-size:10px;line-height:1.6;font-weight:700;border-radius:999px;padding:0 7px;margin:2px 0 1px;color:#fff;background:var(--muted)}
-.mt-ch.palm{background:var(--accent)} .mt-ch.cat{background:#6aa8ff} .mt-ch.insta{background:#c45a9b}
+.mt-ch.palm{background:var(--mt-palm)} .mt-ch.cat{background:var(--mt-cat)} .mt-ch.insta{background:#c45a9b}
 .mt-day .nm{font-size:10.5px;color:var(--muted);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .mt-todo{display:flex;align-items:center;gap:8px;font-size:14px;padding:5px 0}
 .mt-todo .box{width:18px;height:18px;border:2px solid var(--muted);border-radius:5px;flex:none}
@@ -607,6 +609,26 @@ a.mt-day:hover img{filter:brightness(1.06)}
 .mt-staff{display:flex;align-items:center;gap:9px;font-size:14px;padding:4px 0;line-height:1.4}
 .mt-staff img{width:38px;height:38px;object-fit:contain;flex:none}
 .mt-staff b{color:var(--fg-strong)}
+/* グラフ（2026-11-12 さおり「グラフみたいな感じとかも見やすそう」）。線は2px・点は8px・目もりは薄く・端に名前と数字 */
+.mt-legend{display:flex;gap:6px;margin:-2px 0 4px}
+.mt-svg{width:100%;height:auto;display:block;overflow:visible}
+.mt-svg .g{stroke:var(--line);stroke-width:1}
+.mt-svg .ax{font-size:9px;fill:var(--muted)}
+.mt-svg .ln{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.mt-svg .ln.palm{stroke:var(--mt-palm)} .mt-svg .ln.cat{stroke:var(--mt-cat)}
+.mt-svg .dot{stroke:var(--surface);stroke-width:2} .mt-svg .dot.palm{fill:var(--mt-palm)} .mt-svg .dot.cat{fill:var(--mt-cat)}
+.mt-svg .lbl{font-size:10px;fill:var(--fg-strong);font-weight:700}
+.mt-svg .hit{fill:transparent} .mt-svg .hit:hover{fill:color-mix(in srgb,var(--fg) 7%,transparent)}
+.mt-tbl summary{font-size:12px;color:var(--muted);cursor:pointer;margin-top:4px}
+.mt-tbl table{font-size:12px;border-collapse:collapse;margin-top:4px;width:auto}
+.mt-tbl th,.mt-tbl td{padding:2px 12px;text-align:right;border-bottom:1px solid var(--line);font-weight:400}
+.mt-hb{display:grid;grid-template-columns:8.5em minmax(0,1fr) 3.4em;align-items:center;gap:8px;padding:3px 0;color:inherit;text-decoration:none;font-size:12px}
+.mt-hb .hn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mt-hb .hd{color:var(--muted);margin-right:4px;font-size:11px}
+.mt-hb .hbar{height:14px;display:block}
+.mt-hb .hbar i{display:block;height:100%;min-width:4px;background:var(--mt-palm);border-radius:0 4px 4px 0}
+.mt-hb .hv{text-align:right;color:var(--fg)}
+.mt-hb:hover .hbar i{filter:brightness(1.08)} .mt-hb:hover .hn{text-decoration:underline}
 @media (max-width:760px){.mt-cols{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:560px){.mt-head{flex-wrap:wrap}.mt-head>div:first-child{flex-basis:100%}.mt-bubble{margin-left:0;flex:1;max-width:none;font-size:13px}.mt-bubble::after{display:none}.mt-chikuwa{width:64px;height:64px}
   .mt-tiles{grid-template-columns:repeat(2,minmax(0,1fr))!important}.mt-tile .v{font-size:26px}.mt-watch .th{width:112px;height:63px}.mt-week{gap:4px}}
@@ -1151,6 +1173,34 @@ const mt = {docs: new Map()};
 const mtOn = () => st.me==="saori" && mt.docs.has("today");
 const isMatome = () => mtOn() && st.viewId===MATOME_ID;
 const mtName = () => mt.docs.get("today")?.name || "まとめ"; // 名前は置き場所のデータから読む（ページには書かない）
+// 📈 グラフ：登録者の動き（線）と手相ショートの再生（横の棒）。色はチャンネルの札と同じ。数字は端の名前・棒の右・表でも読める
+function mtCharts(d){
+  const fmt = k => +k.slice(5,7) + "/" + +k.slice(8,10), out = [];
+  const ser = (d.subsChart||[]).filter(s => s.points && s.points.length);
+  if (ser.some(s => s.points.length > 1)) {
+    const days = [...new Set(ser.flatMap(s => s.points.map(p => p[0])))].sort();
+    const W = 320, H = 150, L = 26, R = 62, T = 12, B = 22;
+    const top = Math.max(5, Math.ceil(Math.max(...ser.flatMap(s => s.points.map(p => p[1]))) / 5) * 5);
+    const x = k => L + (days.length < 2 ? 0 : days.indexOf(k) / (days.length - 1) * (W - L - R));
+    const y = v => T + (1 - v / top) * (H - T - B);
+    const grid = [0, top / 2, top].map(v => `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" class="g"/><text x="${L - 5}" y="${y(v) + 3}" class="ax" text-anchor="end">${v}</text>`).join("");
+    const xl = `<text x="${L}" y="${H - 6}" class="ax">${fmt(days[0])}</text><text x="${W - R}" y="${H - 6}" class="ax" text-anchor="end">${fmt(days[days.length - 1])}</text>`;
+    const ends = ser.map(s => { const p = s.points[s.points.length - 1]; return {s, p, ly: y(p[1])}; }).sort((a, b) => a.ly - b.ly);
+    ends.forEach((e, i) => { if (i && e.ly - ends[i - 1].ly < 12) e.ly = ends[i - 1].ly + 12; }); // 端の名前が重ならないようにずらす
+    const lines = ser.map(s => s.points.length > 1 ? `<polyline points="${s.points.map(p => x(p[0]).toFixed(1) + "," + y(p[1]).toFixed(1)).join(" ")}" class="ln ${esc(s.cls)}"/>` : "").join("")
+      + ends.map(e => `<circle cx="${x(e.p[0])}" cy="${y(e.p[1])}" r="4" class="dot ${esc(e.s.cls)}"/><text x="${x(e.p[0]) + 8}" y="${e.ly + 3.5}" class="lbl">${esc(e.s.ch)} ${e.p[1]}人</text>`).join("");
+    const step = days.length > 1 ? (W - L - R) / (days.length - 1) : 10;
+    const hits = days.map(k => `<rect x="${x(k) - step / 2}" y="${T}" width="${step}" height="${H - T - B}" class="hit"><title>${fmt(k)}　${ser.map(s => { const p = s.points.find(q => q[0]===k); return `${s.ch} ${p ? p[1] + "人" : "－"}`; }).join("・")}</title></rect>`).join("");
+    const tbl = `<details class="mt-tbl"><summary>表で見る</summary><table><tr><th>日</th>${ser.map(s => `<th>${esc(s.ch)}</th>`).join("")}</tr>${days.slice(-10).reverse().map(k => `<tr><td>${fmt(k)}</td>${ser.map(s => { const p = s.points.find(q => q[0]===k); return `<td class="num">${p ? p[1] : "－"}</td>`; }).join("")}</tr>`).join("")}</table></details>`;
+    out.push(`<div class="mt-box"><h3>📈 登録者の動き <span class="ph">${days.length}日</span></h3>${ser.length > 1 ? `<div class="mt-legend">${ser.map(s => `<span class="mt-ch ${esc(s.cls)}">${esc(s.ch)}</span>`).join("")}</div>` : ""}<svg class="mt-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="チャンネルごとの登録者の動き">${grid}${xl}${hits}${lines}</svg>${tbl}</div>`);
+  }
+  const vb = d.views?.bars || [];
+  if (vb.length) {
+    const vmax = Math.max(1, ...vb.map(b => b.v));
+    out.push(`<div class="mt-box"><h3>📊 手相ショートの再生 <span class="ph">押すとYouTube</span></h3>${vb.map(b => `<a class="mt-hb" href="${esc(b.url)}" target="_blank" rel="noopener" title="${esc(b.date)} ${esc(b.title || b.nm)}：${b.v.toLocaleString()}回"><span class="hn"><span class="hd">${esc(b.date)}</span>${esc(b.nm)}</span><span class="hbar"><i style="width:${(b.v / vmax * 100).toFixed(1)}%"></i></span><span class="hv num">${b.v.toLocaleString()}</span></a>`).join("")}<div class="mt-note">公開から今までの再生（${esc(d.views.asOf || "")} 時点・新しい本ほど日が浅い）</div></div>`);
+  }
+  return out.join("");
+}
 function renderMatome(){
   const d = mt.docs.get("today") || {}, src = k => (k && mt.docs.get("img-"+k)?.src) || "";
   const img = (k, cls = "") => src(k) ? `<img class="${cls}" src="${esc(src(k))}" alt="">` : `<span class="mt-noimg ${cls}"></span>`;
@@ -1177,6 +1227,7 @@ function renderMatome(){
       <div class="mt-box"><h3>👀 社長が見る番 <span class="n num">${(d.watch||[]).length}</span></h3>${watch || `<p class="ph">いまはありません</p>`}${d.soon ? `<div class="mt-soon">あした届く：${esc(d.soon)}</div>` : ""}</div>
     </div><div class="mt-col">
       ${week ? `<div class="mt-box"><h3>📅 今週出るもの${(d.week||[]).some(w => w.url) ? ` <span class="ph">▶ を押すとYouTube</span>` : ""}</h3><div class="mt-week">${week}</div></div>` : ""}
+      ${mtCharts(d)}
       <div class="mt-box"><h3>📱 スマホでやること</h3>${todo || `<p class="ph">いまはありません</p>`}</div>
       ${staff ? `<div class="mt-box"><h3>🐱 社員がいまやっていること</h3>${staff}</div>` : ""}
     </div></div></div>`;
