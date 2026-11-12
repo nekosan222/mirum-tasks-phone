@@ -563,7 +563,6 @@ span.ghost{visibility:hidden;display:block}
 .mt-row.r2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .mt-stack{display:flex;flex-direction:column;gap:14px;min-width:0}
 .mt-stack>:last-child{flex:1}
-.mt-week{max-width:820px;margin:0 auto}
 .mt-staffs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 14px}
 .mt-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .mt-tile{border-radius:var(--r);padding:10px 6px;text-align:center;background:var(--c-orange);min-width:0}
@@ -580,35 +579,59 @@ span.ghost{visibility:hidden;display:block}
 .mt-bar .nm{width:3em;font-size:14px}
 .mt-bar .slots{display:flex;gap:5px;flex:1}
 .mt-bar .slots i{flex:1;height:20px;border-radius:7px;background:var(--c-gray)}
-.mt-bar .mt-track{flex:1;height:20px;border-radius:7px;background:var(--c-gray);overflow:hidden}
+.mt-bar .mt-track{flex:1;height:20px;border-radius:7px;background:var(--c-gray);overflow:hidden;display:flex}
 .mt-bar .mt-track i{display:block;height:100%}
 .mt-bar.palm .slots i.on,.mt-bar.palm .mt-track i{background:var(--mt-palm)}
 .mt-bar.cat .slots i.on,.mt-bar.cat .mt-track i{background:var(--mt-cat)}
+/* 予約済みは同じ色のしま（2026-11-12 さおり「予約済のやつも別の色で出ると良いかも」） */
+.mt-bar.palm .slots i.rsv,.mt-bar.palm .mt-track i.rsv{background:repeating-linear-gradient(-45deg,var(--mt-palm) 0 3px,var(--c-pink) 3px 7px)}
+.mt-bar.cat .slots i.rsv,.mt-bar.cat .mt-track i.rsv{background:repeating-linear-gradient(-45deg,var(--mt-cat) 0 3px,var(--c-blue) 3px 7px)}
+.mt-bfoot{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.mt-key{display:flex;gap:12px;font-size:12px;color:var(--muted)}
+.mt-key i{display:inline-block;width:14px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.mt-key .on{background:var(--muted)} .mt-key .rsv{background:repeating-linear-gradient(-45deg,var(--muted) 0 2px,transparent 2px 4px);box-shadow:inset 0 0 0 1px var(--muted)}
 .mt-bar .n{width:3.5em;text-align:right;font-weight:700}
 .mt-note{font-size:12px;color:var(--muted);text-align:right}
 .mt-watch{display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1.5px dashed var(--line)}
 .mt-watch:first-of-type{border-top:0;padding-top:0}
-.mt-watch .th{width:128px;height:72px;object-fit:cover;border-radius:var(--r-sm);flex:none;background:var(--c-gray)}
+/* 見る番の絵：長編は横長、ショートは縦長（横長と同じ幅の中に置いて、字の始まりをそろえる） */
+.mt-wth{width:128px;height:72px;flex:none}
+.mt-wth img,.mt-wth .mt-noimg{width:100%;height:100%;object-fit:cover;border-radius:var(--r-sm);display:block;background:var(--c-gray)}
+.mt-watch.short .mt-wth{width:72px;height:128px;margin:0 28px}
+.mt-wth .mt-kind{border-radius:0 0 var(--r-sm) var(--r-sm);text-align:center}
+.mt-watch:not(.short) .mt-wth .mt-kind{left:4px;right:auto;bottom:4px;padding:0 8px;border-radius:999px}
+.mt-watch .mt-t .mt-ch{margin:0 5px 0 0;vertical-align:1px}
 .mt-watch .mt-t{font-size:14px;font-weight:700;line-height:1.4;color:var(--fg-strong)}
 .mt-watch .q{font-size:13px;color:var(--muted);margin-top:2px}
 .mt-tag{display:inline-block;font-size:11px;border-radius:6px;padding:1px 6px;margin-right:5px;vertical-align:1px;color:#fff;background:var(--danger)}
 .mt-soon{font-size:12px;color:var(--muted);margin-top:8px;background:var(--accent-soft);border-radius:var(--r-sm);padding:6px 9px}
 .mt-noimg{display:block}
-.mt-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
-.mt-day{text-align:center;min-width:0}
-.mt-day img,.mt-day .mt-noimg{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:8px;display:block;background:var(--c-gray)}
-.mt-day img.night{object-fit:contain;background:linear-gradient(#3b4a8c,#7c6bb8);padding:8px 3px;box-sizing:border-box}
-.mt-day.mt-now img{outline:3px solid var(--accent);outline-offset:1px}
-.mt-day .mt-dt{font-size:12px;font-weight:700;margin-top:4px}
-.mt-day.mt-now .mt-dt{color:var(--danger)}
+/* 今週：1日＝1列のカレンダー。ショートは縦長、長編は横長（2026-11-12 さおり「カレンダー形式のほうが見やすいのかな？」） */
+.mt-cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.mt-cd{min-width:0;border:var(--bw) solid var(--line);border-radius:var(--r-sm);padding:0 5px 8px}
+.mt-cdh{text-align:center;font-size:12px;color:var(--muted);padding:4px 0;margin:0 -5px 8px;border-bottom:var(--bw) solid var(--line)}
+.mt-cdh b{font-size:17px;color:var(--fg-strong);margin-right:2px}
+.mt-cd.mt-now{border-color:var(--accent)}
+.mt-cd.mt-now .mt-cdh{background:var(--accent-soft);border-color:var(--accent);border-radius:calc(var(--r-sm) - 2px) calc(var(--r-sm) - 2px) 0 0}
+.mt-today{display:inline-block;font-size:10px;font-weight:700;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:0 6px;margin-left:4px;vertical-align:1px}
+.mt-cdi{display:flex;flex-direction:column;gap:12px}
+.mt-ci{display:block;text-align:center;min-width:0;color:inherit;text-decoration:none}
+.mt-ci .mt-pic{width:68%;margin:0 auto}
+.mt-ci.long .mt-pic{width:100%}
+.mt-ci img,.mt-ci .mt-noimg{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:8px;display:block;background:var(--c-gray)}
+.mt-ci.long img,.mt-ci.long .mt-noimg{aspect-ratio:16/9}
+.mt-ci.long .mt-kind{left:4px;right:auto;bottom:4px;padding:0 8px;border-radius:999px}
+.mt-ci img.night{object-fit:contain;background:linear-gradient(#3b4a8c,#7c6bb8);padding:8px 3px;box-sizing:border-box}
+a.mt-ci:hover img{filter:brightness(1.06)}
+.mt-cap{margin-top:3px}
+.mt-tm{font-size:12px;font-weight:700;color:var(--fg-strong);margin-right:4px;vertical-align:-1px}
+.mt-none{font-size:12px;color:var(--muted);text-align:center;padding:16px 0;border:var(--bw) dashed var(--line);border-radius:8px}
 .mt-pic{position:relative}
-a.mt-day{color:inherit;text-decoration:none;display:block}
-a.mt-day:hover img{filter:brightness(1.06)}
 .mt-play{position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;background:rgba(230,33,23,.9);color:#fff;font-size:7px;line-height:16px;text-align:center;padding-left:1px;box-sizing:border-box}
 .mt-kind{position:absolute;left:0;right:0;bottom:0;font-size:10px;line-height:1.7;font-weight:700;color:#fff;background:rgba(40,30,35,.62);border-radius:0 0 8px 8px}
 .mt-ch{display:inline-block;font-size:10px;line-height:1.6;font-weight:700;border-radius:999px;padding:0 7px;margin:2px 0 1px;color:#fff;background:var(--muted)}
 .mt-ch.palm{background:var(--mt-palm)} .mt-ch.cat{background:var(--mt-cat)} .mt-ch.insta{background:#c45a9b}
-.mt-day .nm{font-size:10.5px;color:var(--muted);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mt-ci .nm{font-size:10.5px;color:var(--muted);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .mt-todo{display:flex;align-items:center;gap:8px;font-size:14px;padding:5px 0}
 .mt-todo .box{width:18px;height:18px;border:2px solid var(--muted);border-radius:5px;flex:none}
 .mt-todo .dl{margin-left:auto;font-size:11px;background:var(--c-red);color:var(--danger);border-radius:999px;padding:2px 8px;white-space:nowrap}
@@ -637,7 +660,16 @@ a.mt-day:hover img{filter:brightness(1.06)}
 .mt-hb:hover .hbar i{filter:brightness(1.08)} .mt-hb:hover .hn{text-decoration:underline}
 @media (max-width:760px){.mt-row.r21,.mt-row.r2,.mt-staffs{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:560px){.mt-head{flex-wrap:wrap}.mt-head>div:first-child{flex-basis:100%}.mt-bubble{margin-left:0;flex:1;max-width:none;font-size:13px}.mt-bubble::after{display:none}.mt-chikuwa{width:64px;height:64px}
-  .mt-tiles{grid-template-columns:repeat(2,minmax(0,1fr))!important}.mt-tile .v{font-size:26px}.mt-watch .th{width:112px;height:63px}.mt-week{gap:4px}}
+  .mt-tiles{grid-template-columns:repeat(2,minmax(0,1fr))!important}.mt-tile .v{font-size:26px}.mt-wth{width:112px;height:63px}.mt-watch.short .mt-wth{width:63px;height:112px;margin:0 24.5px}}
+/* 狭い画面のカレンダーは、1日＝1行（左に日付、右にその日の本を横に並べる） */
+@media (max-width:700px){.mt-cal{grid-template-columns:minmax(0,1fr)}
+  .mt-cd{display:grid;grid-template-columns:3.4em minmax(0,1fr);gap:8px;align-items:start;padding:6px 6px 6px 0}
+  .mt-cdh{margin:-6px 0;padding:8px 0;border-bottom:0;border-right:var(--bw) solid var(--line);align-self:stretch}
+  .mt-cd.mt-now .mt-cdh{border-radius:calc(var(--r-sm) - 2px) 0 0 calc(var(--r-sm) - 2px)}
+  .mt-cdh b{display:block}.mt-today{margin:2px 0 0}
+  .mt-cdi{flex-direction:row;flex-wrap:wrap;gap:8px}
+  .mt-ci{width:78px}.mt-ci.long{width:140px}.mt-ci .mt-pic{width:100%}
+  .mt-none{padding:6px 10px;text-align:left;flex:1}}
 </style>
 
 <div class="wrap">
@@ -1213,14 +1245,23 @@ function renderMatome(){
   const face = c => `猫/${esc(c)}_face.png`;
   // 数字のカード：登録者はチャンネルごとに1枚（2026-11-12 さおり「チャンネルいくつかあるから1箇所じゃないほうがいい」）
   const tiles = (d.tiles||[]).map(t => `<div class="mt-tile ${esc(t.cls||"")}">${t.ch ? `<span class="mt-ch ${esc(t.cls||"")}">${esc(t.ch)}</span>` : ""}<div class="k">${esc(t.k)}</div><div class="v num">${esc(t.v)}<small>${esc(t.u)}</small></div><div class="d">${esc(t.d)}</div></div>`).join("");
-  const bars = (d.bars||[]).map(b => `<div class="mt-bar ${esc(b.kind)}"><span class="nm">${esc(b.name)}</span>${b.goal <= 10
-      ? `<span class="slots">${Array.from({length: b.goal}, (_, i) => `<i class="${i < b.done ? "on" : ""}"></i>`).join("")}</span>`
-      : `<span class="mt-track"><i style="width:${Math.min(100, Math.round(b.done / b.goal * 100))}%"></i></span>`}<span class="n num">${b.done}/${b.goal}</span></div>`).join("");
-  const watch = (d.watch||[]).map(w => `<div class="mt-watch">${img(w.img, "th")}<div><div class="mt-t">${w.urgent ? `<span class="mt-tag">急ぎ</span>` : ""}${esc(w.title)}</div><div class="q">${esc(w.q)}</div></div></div>`).join("");
-  // 札：形（ショート・長編）はサムネの下の端、チャンネルは日付の下（2026-11-12 さおり「YouTube Shortとか、何のチャンネルとかもあるといい」）
+  // 公開はぬりつぶし、予約済みは同じ色のしま（2026-11-12 さおり「予約済のやつも別の色で出ると良いかも」）
+  const bars = (d.bars||[]).map(b => { const r = b.rsv || 0, pct = n => Math.min(100, Math.round(n / b.goal * 100));
+    return `<div class="mt-bar ${esc(b.kind)}"><span class="nm">${esc(b.name)}</span>${b.goal <= 10
+      ? `<span class="slots">${Array.from({length: b.goal}, (_, i) => `<i class="${i < b.done ? "on" : i < b.done + r ? "rsv" : ""}"></i>`).join("")}</span>`
+      : `<span class="mt-track"><i style="width:${pct(b.done)}%"></i><i class="rsv" style="width:${Math.min(100 - pct(b.done), pct(r))}%"></i></span>`}<span class="n num">${b.done}/${b.goal}</span></div>`; }).join("");
+  const anyRsv = (d.bars||[]).some(b => b.rsv);
+  const chip = w => w.ch ? `<span class="mt-ch ${esc(w.chKind||"")}">${esc(w.ch)}</span>` : "";
+  // 見る番もショートは縦長・長編は横長、形の札つき（2026-11-12 さおり「社長が見る番のところも、今週出るものと同様にショートとロングの表示を変えたい」）
+  const watch = (d.watch||[]).map(w => `<div class="mt-watch${w.kind === "ショート" ? " short" : ""}"><div class="mt-pic mt-wth">${img(w.img)}${w.kind ? `<span class="mt-kind">${esc(w.kind)}</span>` : ""}</div><div><div class="mt-t">${w.urgent ? `<span class="mt-tag">急ぎ</span>` : ""}${chip(w)}${esc(w.title)}</div><div class="q">${esc(w.q)}</div></div></div>`).join("");
+  // 札：形（ショート・長編）はサムネの下の端、チャンネルは時刻の横（2026-11-12 さおり「YouTube Shortとか、何のチャンネルとかもあるといい」）
   // 動画IDがあれば、押すとYouTubeが開く（2026-11-12 さおり「今週出るものとか飛べたら良いね」）
-  const week = (d.week||[]).map(w => { const tag = w.url ? `a href="${esc(w.url)}" target="_blank" rel="noopener"` : "div";
-    return `<${tag} class="mt-day${w.today ? " mt-now" : ""}"><div class="mt-pic">${w.cat ? `<img class="night" src="${face(w.cat)}" alt="">` : img(w.img)}${w.kind ? `<span class="mt-kind">${esc(w.kind)}</span>` : ""}${w.url ? `<span class="mt-play">▶</span>` : ""}</div><div class="mt-dt">${esc(w.dt)}</div>${w.ch ? `<span class="mt-ch ${esc(w.chKind||"")}">${esc(w.ch)}</span>` : ""}<div class="nm">${esc(w.nm)}</div></${w.url ? "a" : "div"}>`; }).join("");
+  const item = w => { const tag = w.url ? `a href="${esc(w.url)}" target="_blank" rel="noopener"` : "div";
+    return `<${tag} class="mt-ci${w.kind === "長編" ? " long" : ""}"><div class="mt-pic">${w.cat ? `<img class="night" src="${face(w.cat)}" alt="">` : img(w.img)}${w.kind ? `<span class="mt-kind">${esc(w.kind)}</span>` : ""}${w.url ? `<span class="mt-play">▶</span>` : ""}</div><div class="mt-cap">${w.tm ? `<span class="mt-tm num">${esc(w.tm)}</span>` : ""}${chip(w)}<div class="nm">${esc(w.nm)}</div></div></${w.url ? "a" : "div"}>`; };
+  // 今週出るもの：1日＝1列のカレンダー。同じ日の本はその日の列に時刻の早い順で重ね、何もない日は「なし」（2026-11-12 さおり「カレンダー形式のほうが見やすいのかな？」）
+  const days = d.day ? Array.from({length: 7}, (_, i) => { const t = new Date(d.day + "T00:00:00"); t.setDate(t.getDate() + i); return t; }) : [];
+  const week = (d.week||[]).length ? days.map(t => { const k = ymd(t), list = (d.week||[]).filter(w => w.d === k);
+    return `<div class="mt-cd${k === todayStr() ? " mt-now" : ""}"><div class="mt-cdh"><b class="num">${t.getDate()}</b>${"日月火水木金土"[t.getDay()]}${k === todayStr() ? `<span class="mt-today">今日</span>` : ""}</div><div class="mt-cdi">${list.map(item).join("") || `<div class="mt-none">なし</div>`}</div></div>`; }).join("") : "";
   const todo = (d.todo||[]).map(t => `<div class="mt-todo"><i class="box"></i><span>${esc(t.text)}</span>${t.due ? `<span class="dl">${esc(t.due)}</span>` : ""}</div>`).join("");
   const staff = (d.staff||[]).map(s => `<div class="mt-staff"><img src="${face(s.cat)}" alt=""><div><b>${esc(s.title)}</b>：${esc(s.text)}</div></div>`).join("");
   const old = d.handDate && d.day && d.handDate!==d.day;
@@ -1231,9 +1272,9 @@ function renderMatome(){
     <div class="mt-row r21">
       <div class="mt-box"><h3>👀 社長が見る番 <span class="n num">${(d.watch||[]).length}</span></h3>${watch || `<p class="ph">いまはありません</p>`}${d.soon ? `<div class="mt-soon">あした届く：${esc(d.soon)}</div>` : ""}</div>
       <div class="mt-stack"><div class="mt-box"><h3>📱 スマホでやること</h3>${todo || `<p class="ph">いまはありません</p>`}</div>
-        ${bars ? `<div class="mt-box"><h3>📺 長編の進み具合</h3>${bars}${d.barNote ? `<div class="mt-note">${esc(d.barNote)}</div>` : ""}</div>` : ""}</div>
+        ${bars ? `<div class="mt-box"><h3>📺 長編の進み具合</h3>${bars}<div class="mt-bfoot">${anyRsv ? `<span class="mt-key"><span><i class="on"></i>公開</span><span><i class="rsv"></i>予約済み</span></span>` : "<span></span>"}${d.barNote ? `<div class="mt-note">${esc(d.barNote)}</div>` : ""}</div></div>` : ""}</div>
     </div>
-    ${week ? `<div class="mt-box"><h3>📅 今週出るもの${(d.week||[]).some(w => w.url) ? ` <span class="ph">▶ を押すとYouTube</span>` : ""}</h3><div class="mt-week">${week}</div></div>` : ""}
+    ${week ? `<div class="mt-box"><h3>📅 今週出るもの${(d.week||[]).some(w => w.url) ? ` <span class="ph">▶ を押すとYouTube</span>` : ""}</h3><div class="mt-cal">${week}</div></div>` : ""}
     <div class="mt-row r2">${mtCharts(d).join("")}</div>
     ${staff ? `<div class="mt-box"><h3>🐱 社員がいまやっていること</h3><div class="mt-staffs">${staff}</div></div>` : ""}
   </div>`;
